@@ -1,0 +1,54 @@
+# This workflow runs whenever a new version tag is pushed.
+#   - The tag must follow this format: `v0.0.0`
+# Runs ./gradlew createFullJarRelease and creates a GitHub Release
+# The .jar artifiact is attached to the release.
+
+name: Create Release On Version Tag Push
+
+on:
+  push:
+    tags:
+    - 'v*'
+  workflow_dispatch:
+
+jobs:
+  create-release-on-version-tag-push:
+    env:
+      BUILD_ARTIFACT_PATH: 'usbSerialForAndroid/build/intermediates/full_jar/release/full.jar'
+      ASSET_NAME: 'usbserial.android.hoho.com-${{ github.ref_name }}.jar'
+  
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+
+    - name: Build Full JAR Release
+      run: ./gradlew createFullJarRelease
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.BUILD_ARTIFACT_PATH }}
+        asset_name: ${{ env.ASSET_NAME }}
+        asset_content_type: application/java-archive
