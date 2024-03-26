@@ -1,3 +1,18 @@
+# Informasjonskontroll - USB Serial for Android
+
+[![Build Status](https://github.com/informasjonskontroll/usb-serial-for-android/workflows/build/badge.svg)](https://github.com/informasjonskontroll/usb-serial-for-android/actions)
+[![Create Release On Version Tag Push](https://github.com/informasjonskontroll/usb-serial-for-android/actions/workflows/create-release-on-version-tag-push.yml/badge.svg)](https://github.com/informasjonskontroll/usb-serial-for-android/actions/workflows/create-release-on-version-tag-push.yml)
+
+This is a fork of the original [usb-serial-for-android](https://github.com/mik3y/usb-serial-for-android) library.
+
+This fork includes a GitHub action to build the library and create a release with the `.jar`-file. Versions are tagged with the version number in the original library.
+
+Original README is included at the bottom of this file.
+
+---
+
+# Original README
+
 [![Actions Status](https://github.com/mik3y/usb-serial-for-android/workflows/build/badge.svg)](https://github.com/mik3y/usb-serial-for-android/actions)
 [![Jitpack](https://jitpack.io/v/mik3y/usb-serial-for-android.svg)](https://jitpack.io/#mik3y/usb-serial-for-android)
 [![Codacy](https://app.codacy.com/project/badge/Grade/ef799bba8a7343818af0a90eba3ecb46)](https://app.codacy.com/gh/kai-morich/usb-serial-for-android-mik3y/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
